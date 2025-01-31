@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="app_name">Example</string>
+    <string name="nav_characters">Characters</string>
+    <string name="nav_favourites">Favourite</string>
+
+    <string name="characters_title">Characters</string>
+
+    <string name="search_characters_placeholder">Search characters</string>
+
+    <string name="favourites_title">Favourites</string>
+    <string name="favourites_no_data">No favorites yet</string>
+
+    <string name="character_detail_name">Name</string>
+    <string name="character_detail_status">Status</string>
+    <string name="character_detail_species">Species</string>
+    <string name="character_detail_type">Type</string>
+    <string name="character_detail_gender">Gender</string>
+    <string name="character_detail_origin">Origin</string>
+    <string name="character_detail_location">Location</string>
+
+    <string name="content_desc_nav_back">Back</string>
+    <string name="content_desc_favourite">Favourite</string>
+    <string name="content_desc_search_characters">Search characters</string>
+    <string name="content_desc_set_as_favourite">As favourite</string>
+    <string name="content_desc_set_as_not_favourite">Not favourite</string>
+
+    <string name="loading_data">Loading</string>
+    <string name="error">Sorry, errors are not handled, better to retry and be sure you have internet connection</string>
+</resources>

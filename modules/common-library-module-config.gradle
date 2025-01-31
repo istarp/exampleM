@@ -1,0 +1,61 @@
+import nz.co.example.app.config.ProjectConfig
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk ProjectConfig.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion ProjectConfig.minSdkVersion
+        targetSdkVersion ProjectConfig.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility = ProjectConfig.jvmTarget
+        targetCompatibility = ProjectConfig.jvmTarget
+    }
+
+    kotlinOptions {
+        jvmTarget = ProjectConfig.kotlinJvmTarget
+        freeCompilerArgs += [
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=kotlin.OptIn"
+        ]
+    }
+
+    buildTypes {
+        debug {
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+
+        release {
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            minHeapSize = "128m"
+            maxHeapSize = "1024m"
+            useJUnitPlatform()
+            testLogging {
+                exceptionFormat "full"
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+            }
+        }
+    }
+
+    lint {
+        //Lint is complaining that scope is missing for @RestrictTo. But we provide it. Looks like lint bug for annotations used in Kotlin.
+        disable 'SupportAnnotationUsage'
+    }
+}
+
+dependencies {
+    implementation(sharedLibs.bundles.kotlin)
+    implementation(sharedLibs.bundles.kotlin.serialization)
+    implementation(sharedLibs.bundles.android.core)
+    implementation(sharedLibs.bundles.koin.core)
+}
+

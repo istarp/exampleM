@@ -1,0 +1,104 @@
+[versions]
+#gradle
+gradle-build-tools = "8.6.1"
+
+#libs
+androidx-activity-compose = "1.10.0"
+androidx-annotation = "1.9.1"
+androidx-appcompat = "1.7.0"
+androidx-compose-bom = "2025.01.00"
+androidx-compose-compiler = "1.5.15"
+androidx-compose-material3 = "1.3.1"
+androidx-core-ktx = "1.15.0"
+androidx-lifecycle = "2.8.7"
+androidx-lifecycle-extensions = "2.2.0"
+androidx-navigation-compose = "2.8.5"
+androidx-paging = "3.3.5"
+androidx-viewmodel-compose = "2.8.7"
+coil = "2.5.0"
+google-material3 = "1.12.0"
+koin = "4.0.1"
+kotlin = "1.9.25"
+kotlin-ksp = "1.9.25-1.0.20" #once kotlin version is updated, update ksp as well
+kotlin-coroutines = "1.9.0"
+kotlin-serialization-json = "1.6.3"
+ktor = "2.3.0"
+room = "2.6.1"
+
+[libraries]
+#gradle
+gradle-build-tools = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle-build-tools" }
+gradle-kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
+
+#libs
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+androidx-annotationx = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-app-compat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "androidx-lifecycle-extensions" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidx-paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidx-paging" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+
+compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose"}
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidx-compose-material3"}
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose"}
+compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata"}
+compose-ui = { group = "androidx.compose.ui", name = "ui"}
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling"}
+compose-ui-util = { group = "androidx.compose.ui", name = "ui-util"}
+compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-viewmodel-compose"}
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+google-material3 = { group = "com.google.android.material", name = "material", version.ref = "google-material3" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+kotlin-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-serialiation-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
+ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
+ktor-android-client = { group = "io.ktor", name = "ktor-client-android"}
+ktor-content-negotation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
+ktor-logging = { group = "io.ktor", name = "ktor-client-logging-jvm" }
+ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+
+[bundles]
+android = [
+    "androidx-app-compat",
+    "androidx-lifecycle-extensions",
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-livedata-ktx",
+    "androidx-viewmodel-ktx",
+    "google-material3",
+    "kotlin-coroutines-android"
+]
+android-core = ["androidx-annotationx", "androidx-core-ktx"]
+coil = ["coil-compose"]
+compose = [
+    "compose-activity",
+    "compose-material3",
+    "compose-navigation",
+    "compose-runtime-livedata",
+    "compose-ui",
+    "compose-ui-util",
+    "compose-ui-tooling",
+    "compose-viewmodel"
+]
+compose-debug = ["compose-ui-tooling"]
+koin-core = ["koin-core"]
+koin-android = ["koin-core", "koin-android", "koin-compose"]
+kotlin = ["kotlin-jdk8", "kotlin-coroutines-core"]
+kotlin-serialization = ["kotlin-serialiation-json"]
+ktor = ["ktor-android-client", "ktor-content-negotation", "ktor-logging", "ktor-serialization"]
+room = ["androidx-room-paging", "androidx-room-runtime", "androidx-room-ktx"]
+room-compiler = ["androidx-room-compiler"]
