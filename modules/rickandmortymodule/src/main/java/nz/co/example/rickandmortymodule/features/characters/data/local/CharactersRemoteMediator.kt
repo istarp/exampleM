@@ -1,4 +1,4 @@
-package nz.co.example.rickandmortymodule.features.characters.data
+package nz.co.example.rickandmortymodule.features.characters.data.local
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState.Loading.endOfPaginationReached
@@ -7,23 +7,27 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import nz.co.example.coremodule.common.NetworkResult
+import nz.co.example.rickandmortymodule.features.api.utils.callApi
 import nz.co.example.rickandmortymodule.features.characters.data.models.DOCharacter
 import nz.co.example.rickandmortymodule.features.characters.data.models.DOCharacterRemoteKeys
+import nz.co.example.rickandmortymodule.features.characters.data.remote.CharactersApiService
 import nz.co.example.rickandmortymodule.features.database.Database
 import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 internal class CharactersRemoteMediator(
     private val database: Database,
-    private val service: CharactersService
+    private val service: CharactersApiService
 ) : RemoteMediator<Int, DOCharacter>() {
+
+    private val recordsPerPage = 35
 
     override suspend fun initialize(): InitializeAction {
         val remoteKey = database.withTransaction {
             database.charactersRemoteKeysDao.getFirstRemoteKey()
         } ?: return InitializeAction.LAUNCH_INITIAL_REFRESH
 
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)
+        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS) //todo change back to 10 minutes
         return if (System.currentTimeMillis() - remoteKey.lastUpdated <= cacheTimeout) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
@@ -39,7 +43,7 @@ internal class CharactersRemoteMediator(
             val page = when (loadType) {
                 LoadType.REFRESH -> {
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                    remoteKeys?.nextKey?.minus(1) ?: STARTING_PAGE_INDEX
+                    remoteKeys?.nextKey?.minus(recordsPerPage) ?: STARTING_PAGE_CURSOR
                 }
 
                 LoadType.PREPEND -> {
@@ -53,17 +57,17 @@ internal class CharactersRemoteMediator(
                 }
             }
 
-            when (val response = service.getCharacters(page = page, name = null)) {
-                is NetworkResult.Error -> MediatorResult.Success(endOfPaginationReached = false)
+            when (val response = callApi { service.getCharacters(perPage = recordsPerPage, cursor = page) }) {
+                is NetworkResult.Error -> MediatorResult.Error(response.exception)
                 NetworkResult.NoData -> MediatorResult.Success(endOfPaginationReached = true)
                 is NetworkResult.Success -> {
-                    val prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1)
-                    val nextKey = if ((endOfPaginationReached)) null else page.plus(1)
+                    val prevKey = if (page == STARTING_PAGE_CURSOR) null else page.minus(recordsPerPage)
+                    val nextKey = if ((endOfPaginationReached)) null else page.plus(recordsPerPage)
 
                     database.withTransaction {
-                        database.charactersDao.insertAll(response.data.results)
+                        database.charactersDao.insertAll(response.data.data)
 
-                        val remoteKeys = response.data.results.map {
+                        val remoteKeys = response.data.data.map {
                             DOCharacterRemoteKeys(
                                 characterId = it.id,
                                 prevKey = prevKey,
@@ -74,7 +78,7 @@ internal class CharactersRemoteMediator(
                         database.charactersRemoteKeysDao.insertAll(remoteKeys)
                     }
 
-                    MediatorResult.Success(endOfPaginationReached = response.data.info.next == null)
+                    MediatorResult.Success(endOfPaginationReached = response.data.meta.nextCursor == null)
                 }
             }
         } catch (e: Exception) {
@@ -83,7 +87,7 @@ internal class CharactersRemoteMediator(
     }
 
     companion object {
-        const val STARTING_PAGE_INDEX = 1
+        const val STARTING_PAGE_CURSOR = 0
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, DOCharacter>): DOCharacterRemoteKeys? {

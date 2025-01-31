@@ -17,12 +17,13 @@ androidx-paging = "3.3.5"
 androidx-viewmodel-compose = "2.8.7"
 coil = "2.5.0"
 google-material3 = "1.12.0"
+okhttp-logging = "4.12.0"
 koin = "4.0.1"
 kotlin = "1.9.25"
 kotlin-ksp = "1.9.25-1.0.20" #once kotlin version is updated, update ksp as well
 kotlin-coroutines = "1.9.0"
 kotlin-serialization-json = "1.6.3"
-ktor = "2.3.0"
+retrofit = "2.11.0"
 room = "2.6.1"
 
 [libraries]
@@ -58,6 +59,7 @@ compose-ui-util = { group = "androidx.compose.ui", name = "ui-util"}
 compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-viewmodel-compose"}
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
 google-material3 = { group = "com.google.android.material", name = "material", version.ref = "google-material3" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
@@ -65,11 +67,9 @@ kotlin-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-c
 kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 kotlin-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-serialiation-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
-ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
-ktor-android-client = { group = "io.ktor", name = "ktor-client-android"}
-ktor-content-negotation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
-ktor-logging = { group = "io.ktor", name = "ktor-client-logging-jvm" }
-ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlin-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
 
 [bundles]
 android = [
@@ -99,6 +99,6 @@ koin-core = ["koin-core"]
 koin-android = ["koin-core", "koin-android", "koin-compose"]
 kotlin = ["kotlin-jdk8", "kotlin-coroutines-core"]
 kotlin-serialization = ["kotlin-serialiation-json"]
-ktor = ["ktor-android-client", "ktor-content-negotation", "ktor-logging", "ktor-serialization"]
+retrofit = ["retrofit", "retrofit-kotlin-serialization", "okhttp-logging"]
 room = ["androidx-room-paging", "androidx-room-runtime", "androidx-room-ktx"]
 room-compiler = ["androidx-room-compiler"]

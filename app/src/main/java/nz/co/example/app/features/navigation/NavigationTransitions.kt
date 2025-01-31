@@ -7,37 +7,24 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.navigation.NavBackStackEntry
-import nz.co.example.app.features.navigation.models.topLevelRoutes
 
 internal fun navEnterTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition =
     {
-        when {
-            topLevelRoutes.contains(targetState.destination.route) -> fadeIn()
-            else -> slideInFromLeft()
-        }
+        slideInFromLeft()
     }
 
 internal fun navExitTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
-    when {
-        topLevelRoutes.contains(targetState.destination.route) -> fadeOut()
-        else -> slideOutToLeft()
-    }
+    slideOutToLeft()
 }
 
 internal fun navPopExitTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition =
     {
-        when {
-            topLevelRoutes.contains(initialState.destination.route) -> fadeOut()
-            else -> slideOutToRight()
-        }
+        slideOutToRight()
     }
 
 internal fun navPopEnterTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition =
     {
-        when {
-            topLevelRoutes.contains(initialState.destination.route) -> fadeIn()
-            else -> slideInFromRight()
-        }
+        slideInFromRight()
     }
 
 

@@ -1,3 +1,6 @@
+import com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.LibraryBuildType
+
 apply(from = "../common-library-module-config.gradle")
 
 plugins {
@@ -12,6 +15,20 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    buildTypes {
+        debug {
+           setApiKey()
+        }
+        release {
+            setApiKey()
+        }
+    }
+}
+
+fun LibraryBuildType.setApiKey() {
+    val apiKey: String by project
+    buildConfigField("String", "API_KEY", apiKey)
 }
 
 dependencies {
@@ -19,8 +36,7 @@ dependencies {
 
     implementation(sharedLibs.bundles.compose)
     implementation(sharedLibs.bundles.android)
-    implementation(platform(sharedLibs.ktor.bom))
-    implementation(sharedLibs.bundles.ktor)
+    implementation(sharedLibs.bundles.retrofit)
     implementation(sharedLibs.bundles.room)
     kapt(sharedLibs.bundles.room.compiler)
 

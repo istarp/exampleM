@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.ApplicationBuildType
 import nz.co.example.app.config.ProjectConfig
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent

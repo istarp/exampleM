@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nz.co.example.app.features.characterdetail.CharacterDetailScreen
 import nz.co.example.app.features.characters.CharactersScreen
-import nz.co.example.app.features.favouritecharacters.FavouriteCharactersScreen
 import nz.co.example.app.features.navigation.models.AppNavigationRoute
 import nz.co.example.app.features.navigation.models.GenericNavigation
 import nz.co.example.app.features.navigation.models.NavigationUp
@@ -39,12 +38,6 @@ internal fun NavigationScreen(
                 modifier = modifier,
                 characterId = AppNavigationRoute.CharacterDetail.getArg(entry),
                 onNavigate = { handleNavigation(it, navController) })
-        }
-        composable(AppNavigationRoute.Favourites.route) {
-            FavouriteCharactersScreen(
-                modifier = modifier,
-                onNavigate = { handleNavigation(it, navController) }
-            )
         }
     }
 }

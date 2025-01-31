@@ -7,8 +7,5 @@ import nz.co.example.rickandmortymodule.features.characters.business.models.Char
 
 internal interface CharactersRepository {
     suspend fun getCharacters(): Flow<PagingData<Character>>
-    suspend fun getCharacters(name: String): Flow<PagingData<Character>>
-    suspend fun getFavouriteCharacters(): Flow<List<Character>>
     suspend fun getCharacter(id: String): Flow<Result<Character>>
-    suspend fun updateCharacter(id: String, isFavourite: Boolean)
 }

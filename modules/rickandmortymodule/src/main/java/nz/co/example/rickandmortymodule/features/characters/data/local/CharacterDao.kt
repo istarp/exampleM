@@ -1,4 +1,4 @@
-package nz.co.example.rickandmortymodule.features.characters.data
+package nz.co.example.rickandmortymodule.features.characters.data.local
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
@@ -17,17 +17,11 @@ internal interface CharacterDao {
     @Query("SELECT * FROM characters")
     fun getCharacters(): PagingSource<Int, DOCharacter>
 
-    @Query("SELECT * FROM characters WHERE isFavourite = 1")
-    fun getFavouriteCharacters(): Flow<List<DOCharacter>>
-
     @Query("SELECT * FROM characters WHERE id = :id")
     fun getCharacter(id: String): Flow<DOCharacter?>
 
     @Query("SELECT * FROM characters WHERE id = :id")
     suspend fun retrieveCharacter(id: String): DOCharacter?
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateCharacter(character: DOCharacter)
 
     @Query("DELETE FROM characters")
     suspend fun clearAll()

@@ -25,7 +25,7 @@ internal class CharacterDetailViewModel(
     fun onToggleFavourite() {
         val current = (data.value as? LCEState.Content)?.value ?: return
         viewModelScope.launch {
-            charactersFeature.setFavouriteCharacter(current.id.toString(), current.isFavourite.not())
+         //   charactersFeature.setFavouriteCharacter(current.id.toString(), current.isFavourite.not())
         }
     }
 

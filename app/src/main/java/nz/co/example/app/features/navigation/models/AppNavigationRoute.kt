@@ -6,8 +6,6 @@ internal sealed class AppNavigationRoute(open val route: String) {
 
     data object Characters : AppNavigationRoute("characters")
 
-    data object Favourites : AppNavigationRoute("favourites")
-
     class CharacterDetail : AppNavigationRoute(ROUTE) {
         companion object {
             private const val BASE_URL = "character"

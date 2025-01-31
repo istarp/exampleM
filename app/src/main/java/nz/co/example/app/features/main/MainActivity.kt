@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import nz.co.example.app.ui.theme.AppTheme
+import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
 
@@ -17,8 +18,10 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun Content() {
-        AppTheme {
-            MainScreen()
+        KoinContext() {
+            AppTheme {
+                MainScreen()
+            }
         }
     }
 

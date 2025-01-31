@@ -63,17 +63,6 @@ internal class CharactersViewModel(private val charactersFeature: CharactersFeat
         if (text.isBlank()) {
             searchData.value = PagingData.empty()
         } else {
-            //todo ideally add some throttling
-            searchCollectionJob = viewModelScope.launch {
-                charactersFeature.searchCharacters(text)
-                    .distinctUntilChanged()
-                    .cachedIn(viewModelScope)
-                    .collect { pagingData ->
-                        searchData.value = pagingData.map {
-                            mapFrom(it)
-                        }
-                    }
-            }
         }
     }
 

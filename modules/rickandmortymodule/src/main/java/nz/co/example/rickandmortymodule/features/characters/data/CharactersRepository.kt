@@ -15,42 +15,24 @@ import nz.co.example.coremodule.common.Result
 import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFeature
 import nz.co.example.rickandmortymodule.features.characters.business.CharactersRepository
 import nz.co.example.rickandmortymodule.features.characters.business.models.Character
+import nz.co.example.rickandmortymodule.features.characters.data.local.CharactersRemoteMediator
 import nz.co.example.rickandmortymodule.features.characters.data.models.mapFrom
+import nz.co.example.rickandmortymodule.features.characters.data.remote.CharactersApiService
 import nz.co.example.rickandmortymodule.features.database.Database
 
 internal class CharactersRepositoryImpl(
-    private val service: CharactersService,
+    private val service: CharactersApiService,
     private val database: Database,
     private val dispatchers: CoroutineDispatchersFeature
 ) : CharactersRepository {
 
     override suspend fun getCharacters(): Flow<PagingData<Character>> {
-        return Pager(config = PagingConfig(pageSize = 100),
+        return Pager(config = PagingConfig(pageSize = 35),
             initialKey = 1,
             remoteMediator = CharactersRemoteMediator(service = service, database = database),
             pagingSourceFactory = { database.charactersDao.getCharacters() }).flow.map { pagingData ->
             pagingData.map { page ->
                 mapFrom(page)
-            }
-        }
-    }
-
-    override suspend fun getCharacters(name: String): Flow<PagingData<Character>> {
-        return Pager(
-            config = PagingConfig(pageSize = 100),
-            initialKey = 1,
-            pagingSourceFactory = { CharactersPagingSource(name = name, service = service) },
-        ).flow.map { pagingData ->
-            pagingData.map { page ->
-                mapFrom(page)
-            }
-        }
-    }
-
-    override suspend fun getFavouriteCharacters(): Flow<List<Character>> {
-        return withContext(dispatchers.io()) {
-            database.charactersDao.getFavouriteCharacters().map { items ->
-                items.map { mapFrom(it) }
             }
         }
     }
@@ -77,11 +59,4 @@ internal class CharactersRepositoryImpl(
         }
     }
 
-    override suspend fun updateCharacter(id: String, isFavourite: Boolean) {
-        withContext(dispatchers.io()) {
-            database.charactersDao.retrieveCharacter(id)?.let {
-                database.charactersDao.updateCharacter(it.copy(isFavourite = isFavourite))
-            }
-        }
-    }
 }

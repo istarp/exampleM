@@ -1,4 +1,4 @@
-package nz.co.example.rickandmortymodule.features.characters.data
+package nz.co.example.rickandmortymodule.features.characters.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
