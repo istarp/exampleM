@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import nz.co.example.app.features.characterdetail.CharacterDetailScreen
+import nz.co.example.app.features.nbaplayerdetail.NBAPlayerDetailScreen
 import nz.co.example.app.features.nbaplayers.NBAPlayersScreen
 import nz.co.example.app.features.navigation.models.AppNavigationRoute
 import nz.co.example.app.features.navigation.models.GenericNavigation
@@ -34,9 +34,9 @@ internal fun NavigationScreen(
             )
         }
         composable(AppNavigationRoute.NBAPlayerDetail().route) { entry ->
-            CharacterDetailScreen(
+            NBAPlayerDetailScreen(
                 modifier = modifier,
-                characterId = AppNavigationRoute.NBAPlayerDetail.getArg(entry),
+                playerId = AppNavigationRoute.NBAPlayerDetail.getArg(entry),
                 onNavigate = { handleNavigation(it, navController) })
         }
     }

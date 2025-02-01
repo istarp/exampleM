@@ -9,19 +9,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -50,19 +57,18 @@ internal fun NBAPlayersScreen(
 ) {
     val players = viewModel.data.collectAsLazyPagingItems()
 
-    Box(modifier = modifier) {
-        Layout(
-            players = players,
-            onNavigate = onNavigate,
-        )
-    }
+    Layout(
+        modifier = modifier,
+        players = players,
+        onNavigate = onNavigate,
+    )
 }
 
 @Composable
 private fun Layout(
+    modifier: Modifier = Modifier,
     players: LazyPagingItems<UIONBAPlayerCard>,
-    onNavigate: (GenericNavigation) -> Unit,
-    modifier: Modifier = Modifier
+    onNavigate: (GenericNavigation) -> Unit
 ) {
     Column(modifier = modifier) {
         TopAppBar(
@@ -78,27 +84,23 @@ private fun Layout(
                 }
             }
         )
-        NBAPlayersLCE(players = players, onNavigate = onNavigate)
+        NBAPlayersLCE(
+            modifier = Modifier.windowInsetsPadding(WindowInsets.safeContent.only(WindowInsetsSides.Horizontal)),
+            players = players,
+            onNavigate = onNavigate
+        )
     }
 }
 
 @Composable
 private fun NBAPlayersLCE(
+    modifier: Modifier = Modifier,
     players: LazyPagingItems<UIONBAPlayerCard>,
-    onNavigate: (GenericNavigation) -> Unit,
-    modifier: Modifier = Modifier
+    onNavigate: (GenericNavigation) -> Unit
 ) = when {
-    players.loadState.refresh is LoadState.Loading && players.itemCount == 0 -> {
-        Loading(modifier = Modifier.fillMaxSize())
-    }
-
-    players.loadState.refresh is LoadState.Error -> {
-        Error(modifier = Modifier.fillMaxSize())
-    }
-
-    else -> {
-        Players(modifier, players, onNavigate)
-    }
+    players.loadState.refresh is LoadState.Loading && players.itemCount == 0 -> Loading(modifier = modifier.fillMaxSize())
+    players.loadState.refresh is LoadState.Error -> Error(modifier = modifier.fillMaxSize())
+    else -> Players(modifier = modifier, players = players, onNavigate = onNavigate)
 }
 
 @Composable
@@ -109,13 +111,13 @@ private fun Players(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(count = players.itemCount, key = players.itemKey { it.id }) { index ->
             players[index]?.let {
                 PlayerCard(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier,
                     model = it,
                     onClick = { card ->
                         onNavigate(RouteNavigation(AppNavigationRoute.NBAPlayerDetail.createRoute(card.id.toString())))
@@ -147,23 +149,33 @@ internal fun PlayerCard(
     onClick: (UIONBAPlayerCard) -> Unit
 ) {
     Card(
-        modifier = Modifier,
+        modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = AppTheme.colors.background.tertiary),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
-        Column(
-            modifier = modifier
+        Row(
+            modifier = Modifier
                 .clickable { onClick(model) }
                 .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = model.name,
-                style = AppTheme.typography.headline.headline3,
-                color = AppTheme.colors.foreground.primary
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = model.name,
+                    style = AppTheme.typography.headline.headline3,
+                    color = AppTheme.colors.foreground.primary
+                )
+                DetailWithLabel(label = stringResource(R.string.nba_players_team), detail = model.team)
+                DetailWithLabel(label = stringResource(R.string.nba_players_position), detail = model.position)
+            }
+            Icon(
+                modifier = Modifier.size(24.dp),
+                painter = painterResource(R.drawable.ic_nav_forward),
+                contentDescription = stringResource(R.string.content_desc_nav_forward)
             )
-            DetailWithLabel(label = stringResource(R.string.nba_players_team), detail = model.team)
-            DetailWithLabel(label = stringResource(R.string.nba_players_position), detail = model.position)
         }
     }
 }

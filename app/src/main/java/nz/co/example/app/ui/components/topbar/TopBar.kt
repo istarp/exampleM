@@ -18,8 +18,8 @@ import nz.co.example.app.ui.theme.AppTheme
 
 @Composable
 internal fun TopAppBar(
-    title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    title: @Composable () -> Unit,
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {}
 ) {

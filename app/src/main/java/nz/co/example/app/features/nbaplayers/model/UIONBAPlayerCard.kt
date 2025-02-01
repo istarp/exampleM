@@ -52,6 +52,6 @@ internal fun mapFrom(data: NBAPlayer): UIONBAPlayerCard {
         id = data.id,
         name = data.firstName + " " + data.lastName,
         position = data.position,
-        team = data.teamName
+        team = data.team.name
     )
 }
