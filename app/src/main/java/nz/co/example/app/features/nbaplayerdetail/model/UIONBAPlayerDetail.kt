@@ -13,7 +13,7 @@ internal data class UIONBAPlayerDetail(
     val draftYear: String,
     val draftRound: String,
     val draftNumber: String,
-    val teamId: String,
+    val teamId: Int,
     val teamName: String
 ) {
     companion object {
@@ -29,7 +29,7 @@ internal data class UIONBAPlayerDetail(
                 draftYear = "2000",
                 draftRound = "1",
                 draftNumber = "1",
-                teamId = "1",
+                teamId = 1,
                 teamName = "Cavaliers"
             )
         }
@@ -48,7 +48,7 @@ internal fun mapFrom(data: NBAPlayer): UIONBAPlayerDetail {
         draftYear = data.draftYear,
         draftRound = data.draftRound,
         draftNumber = data.draftNumber,
-        teamId = data.team.id.toString(),
+        teamId = data.team.id,
         teamName = data.team.name
     )
 }

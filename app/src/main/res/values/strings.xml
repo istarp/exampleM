@@ -16,6 +16,12 @@
     <string name="nba_player_detail_draft_number">Draft number</string>
     <string name="nba_player_detail_team">Team name</string>
 
+    <string name="nba_team_detail_conference">Conference</string>
+    <string name="nba_team_detail_division">Division</string>
+    <string name="nba_team_detail_city">City</string>
+    <string name="nba_team_detail_full_name">Full name</string>
+    <string name="nba_team_detail_abbreviation">Abbreviation</string>
+
     <string name="content_desc_nav_back">Back</string>
     <string name="content_desc_nav_forward">Forward</string>
 

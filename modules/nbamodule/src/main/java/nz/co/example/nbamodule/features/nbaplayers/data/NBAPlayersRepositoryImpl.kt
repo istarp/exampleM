@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 import nz.co.example.coremodule.common.NetworkResult
 import nz.co.example.coremodule.common.Result
 import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFeature
+import nz.co.example.nbamodule.features.api.utils.callApi
 import nz.co.example.nbamodule.features.database.Database
 import nz.co.example.nbamodule.features.nbaplayers.business.NBAPlayersRepository
 import nz.co.example.nbamodule.features.nbaplayers.business.models.NBAPlayer
@@ -40,9 +41,9 @@ internal class NBAPlayersRepositoryImpl(
     override suspend fun getPlayer(id: String): Flow<Result<NBAPlayer>> {
         return withContext(dispatchers.io()) {
             if (database.nbaPlayersDao.retrievePlayer(id) == null) {
-                when (val result = service.getPlayer(id)) {
-                    is NetworkResult.Success -> Result.Data(mapFrom(result.data)).also {
-                        database.nbaPlayersDao.insertAll(listOf(mapFrom(result.data)))
+                when (val result = callApi { service.getPlayer(id) }) {
+                    is NetworkResult.Success -> Result.Data(mapFrom(result.value.data)).also {
+                        database.nbaPlayersDao.insertAll(listOf(mapFrom(result.value.data)))
                     }
 
                     else -> {}

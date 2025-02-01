@@ -17,4 +17,15 @@ internal sealed class AppNavigationRoute(open val route: String) {
         }
     }
 
+    class NBATeamDetail : AppNavigationRoute(ROUTE) {
+        companion object {
+            private const val BASE_URL = "nbaTeam"
+            private const val ROUTE = "${BASE_URL}/{id}"
+
+            fun createRoute(id: String): String = "$BASE_URL/$id"
+
+            fun getArg(navBackStackEntry: NavBackStackEntry): String? = navBackStackEntry.arguments?.getString("id")
+        }
+    }
+
 }

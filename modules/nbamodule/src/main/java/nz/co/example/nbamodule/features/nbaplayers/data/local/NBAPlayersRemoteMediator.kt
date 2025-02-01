@@ -65,19 +65,19 @@ internal class NBAPlayersRemoteMediator(
                             database.nbaPlayersDao.clearAll()
                         }
 
-                        database.nbaPlayersDao.insertAll(response.data.data.map { mapFrom(it) })
+                        database.nbaPlayersDao.insertAll(response.value.data.map { mapFrom(it) })
 
-                        val data = response.data
+                        val data = response.value
                         val prevKey = data.meta.prevCursor
                         val nextKey = if ((endOfPaginationReached)) null else data.meta.nextCursor
 
-                        val remoteKeys = response.data.data.map {
+                        val remoteKeys = response.value.data.map {
                             mapFrom(playerId = it.id, prevKey = prevKey, nextKey = nextKey)
                         }
                         database.nbaPlayersRemoteKeysDao.insertAll(remoteKeys)
                     }
 
-                    MediatorResult.Success(endOfPaginationReached = response.data.meta.nextCursor == null)
+                    MediatorResult.Success(endOfPaginationReached = response.value.meta.nextCursor == null)
                 }
             }
         } catch (e: Exception) {

@@ -11,6 +11,7 @@ import nz.co.example.app.features.navigation.models.AppNavigationRoute
 import nz.co.example.app.features.navigation.models.GenericNavigation
 import nz.co.example.app.features.navigation.models.NavigationUp
 import nz.co.example.app.features.navigation.models.RouteNavigation
+import nz.co.example.app.features.nbateamdetail.NBATeamDetailScreen
 
 @Composable
 internal fun NavigationScreen(
@@ -37,6 +38,12 @@ internal fun NavigationScreen(
             NBAPlayerDetailScreen(
                 modifier = modifier,
                 playerId = AppNavigationRoute.NBAPlayerDetail.getArg(entry),
+                onNavigate = { handleNavigation(it, navController) })
+        }
+        composable(AppNavigationRoute.NBATeamDetail().route) { entry ->
+            NBATeamDetailScreen(
+                modifier = modifier,
+                teamId = AppNavigationRoute.NBATeamDetail.getArg(entry),
                 onNavigate = { handleNavigation(it, navController) })
         }
     }
