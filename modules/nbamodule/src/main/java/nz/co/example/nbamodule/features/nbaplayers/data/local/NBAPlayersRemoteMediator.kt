@@ -28,7 +28,7 @@ internal class NBAPlayersRemoteMediator(
             database.nbaPlayersRemoteKeysDao.getFirstRemoteKey()
         } ?: return InitializeAction.LAUNCH_INITIAL_REFRESH
 
-        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS) //todo change back to 10 minutes
+        val cacheTimeout = TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)
         return if (System.currentTimeMillis() - remoteKey.lastUpdated <= cacheTimeout) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
