@@ -3,7 +3,9 @@
     <string name="nav_characters">Characters</string>
     <string name="nav_favourites">Favourite</string>
 
-    <string name="characters_title">Characters</string>
+    <string name="nba_players_title">NBA players</string>
+    <string name="nba_players_team">Team</string>
+    <string name="nba_players_position">Position</string>
 
     <string name="search_characters_placeholder">Search characters</string>
 

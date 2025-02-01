@@ -25,7 +25,7 @@ internal fun MainScreen(
             bottomBar = {}
         ) { innerPadding ->
             MainLayout(
-                startDestination = AppNavigationRoute.Characters.route,
+                startDestination = AppNavigationRoute.NBAPlayers.route,
                 navController = navController,
                 modifier = Modifier.padding(
                     bottom = innerPadding.calculateBottomPadding(),

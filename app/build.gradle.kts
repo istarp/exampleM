@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.ApplicationBuildType
 import nz.co.example.app.config.ProjectConfig
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -115,7 +114,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":modules:rickandmortymodule"))
+    implementation(project(":modules:nbamodule"))
     implementation(project(":modules:coremodule"))
 
     implementation(sharedLibs.bundles.kotlin)

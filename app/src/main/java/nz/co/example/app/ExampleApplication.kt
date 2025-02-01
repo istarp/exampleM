@@ -3,7 +3,7 @@ package nz.co.example.app
 import android.app.Application
 import nz.co.example.app.di.appModule
 import nz.co.example.coremodule.di.coreModule
-import nz.co.example.rickandmortymodule.di.rickAndMortyModule
+import nz.co.example.nbamodule.di.nbaModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +16,7 @@ class ExampleApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@ExampleApplication)
-            modules(appModule, rickAndMortyModule, coreModule)
+            modules(appModule, nbaModule, coreModule)
         }
     }
 

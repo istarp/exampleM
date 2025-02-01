@@ -20,9 +20,9 @@ pluginManagement {
 
 include(":app")
 
-val rickAndMortyModule = ":modules:rickandmortymodule"
-include(rickAndMortyModule)
-project(rickAndMortyModule).projectDir = File(settingsDir, "./modules/rickandmortymodule")
+val nbaModule = ":modules:nbamodule"
+include(nbaModule)
+project(nbaModule).projectDir = File(settingsDir, "./modules/nbamodule")
 
 val coreModule = ":modules:coremodule"
 include(coreModule)

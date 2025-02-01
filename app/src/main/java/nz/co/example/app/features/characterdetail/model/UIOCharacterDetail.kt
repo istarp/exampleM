@@ -1,6 +1,6 @@
 package nz.co.example.app.features.characterdetail.model
 
-import nz.co.example.rickandmortymodule.features.characters.business.models.Character
+import nz.co.example.nbamodule.features.nbaplayers.business.models.NBAPlayer
 
 internal data class UIOCharacterDetail(
     val id: Int,
@@ -34,17 +34,17 @@ internal data class UIOCharacterDetail(
 
 }
 
-internal fun mapFrom(data: Character): UIOCharacterDetail {
+internal fun mapFrom(data: NBAPlayer): UIOCharacterDetail {
     return UIOCharacterDetail(
         id = data.id,
-        name = data.name,
-        imageUrl = data.imageUrl,
-        status = data.status,
-        species = data.species,
-        type = data.type.ifBlank { "-" },
-        gender = data.gender,
-        origin = data.origin,
-        location = data.location,
-        isFavourite = data.isFavourite
+        name = "${data.firstName} ${data.lastName}",
+        imageUrl = "https://rickandmortyapi.com/api/character/avatar/${data.id}.jpeg",
+        status = "",
+        species = data.position,
+        type = data.teamName,
+        gender = "",
+        origin = "",
+        location = "",
+        isFavourite = false
     )
 }

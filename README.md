@@ -27,5 +27,3 @@ možné se prokliknout na detail klubu ve kterém hraje s dostupnými informacem
 * Error handling
 * Better Logging
 * Some tests would be nice :)
-* Add some throttling when user searches
-* Introduce entity model for character as now network model is stored in db

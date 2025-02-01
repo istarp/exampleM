@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import nz.co.example.app.features.characterdetail.CharacterDetailScreen
-import nz.co.example.app.features.characters.CharactersScreen
+import nz.co.example.app.features.nbaplayers.NBAPlayersScreen
 import nz.co.example.app.features.navigation.models.AppNavigationRoute
 import nz.co.example.app.features.navigation.models.GenericNavigation
 import nz.co.example.app.features.navigation.models.NavigationUp
@@ -27,16 +27,16 @@ internal fun NavigationScreen(
         popExitTransition = navPopExitTransition(),
         modifier = Modifier
     ) {
-        composable(AppNavigationRoute.Characters.route) {
-            CharactersScreen(
+        composable(AppNavigationRoute.NBAPlayers.route) {
+            NBAPlayersScreen(
                 modifier = modifier,
                 onNavigate = { handleNavigation(it, navController) }
             )
         }
-        composable(AppNavigationRoute.CharacterDetail().route) { entry ->
+        composable(AppNavigationRoute.NBAPlayerDetail().route) { entry ->
             CharacterDetailScreen(
                 modifier = modifier,
-                characterId = AppNavigationRoute.CharacterDetail.getArg(entry),
+                characterId = AppNavigationRoute.NBAPlayerDetail.getArg(entry),
                 onNavigate = { handleNavigation(it, navController) })
         }
     }

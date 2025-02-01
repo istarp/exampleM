@@ -9,10 +9,10 @@ import nz.co.example.app.features.characterdetail.model.UIOCharacterDetail
 import nz.co.example.app.features.characterdetail.model.mapFrom
 import nz.co.example.app.ui.lce.LCEState
 import nz.co.example.coremodule.common.Result
-import nz.co.example.rickandmortymodule.features.characters.CharactersFeature
+import nz.co.example.nbamodule.features.nbaplayers.NBAPlayersFeature
 
 internal class CharacterDetailViewModel(
-    private val id: String, private val charactersFeature: CharactersFeature
+    private val id: String, private val nbaPlayersFeature: NBAPlayersFeature
 ) : ViewModel() {
 
     val data: StateFlow<LCEState<UIOCharacterDetail>>
@@ -31,7 +31,7 @@ internal class CharacterDetailViewModel(
 
     private fun collectData() {
         viewModelScope.launch {
-            charactersFeature.getCharacter(id)
+            nbaPlayersFeature.getPlayer(id)
                 .collect { result ->
                     data.value = when (result) {
                         is Result.Data -> LCEState.Content(mapFrom(result.data))
