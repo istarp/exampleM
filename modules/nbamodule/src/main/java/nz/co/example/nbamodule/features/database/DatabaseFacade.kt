@@ -11,7 +11,7 @@ import nz.co.example.nbamodule.features.nbaplayers.data.local.models.TeamConvert
 
 @Database(entities = [EntityNBAPlayer::class, EntityNBAPlayerRemoteKeys::class], version = 1, exportSchema = false)
 @TypeConverters(TeamConverter::class)
-internal abstract class Database : RoomDatabase() {
+internal abstract class DatabaseFacade : RoomDatabase() {
     abstract val nbaPlayersDao: NBAPlayerDao
     abstract val nbaPlayersRemoteKeysDao: NBAPlayerRemoteKeysDao
 }

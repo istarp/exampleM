@@ -8,7 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import nz.co.example.coremodule.common.NetworkResult
 import nz.co.example.nbamodule.features.api.utils.callApi
-import nz.co.example.nbamodule.features.database.Database
+import nz.co.example.nbamodule.features.database.DatabaseFacade
 import nz.co.example.nbamodule.features.nbaplayers.data.local.models.EntityNBAPlayer
 import nz.co.example.nbamodule.features.nbaplayers.data.local.models.EntityNBAPlayerRemoteKeys
 import nz.co.example.nbamodule.features.nbaplayers.data.local.models.mapFrom
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 internal class NBAPlayersRemoteMediator(
-    private val database: Database,
+    private val database: DatabaseFacade,
     private val service: NBAPlayersApiService
 ) : RemoteMediator<Int, EntityNBAPlayer>() {
 

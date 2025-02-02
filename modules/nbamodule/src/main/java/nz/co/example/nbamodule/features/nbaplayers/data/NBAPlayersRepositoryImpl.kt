@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import nz.co.example.coremodule.common.NetworkResult
 import nz.co.example.coremodule.common.Result
-import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFeature
+import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFacade
 import nz.co.example.nbamodule.features.api.utils.callApi
-import nz.co.example.nbamodule.features.database.Database
+import nz.co.example.nbamodule.features.database.DatabaseFacade
 import nz.co.example.nbamodule.features.nbaplayers.business.NBAPlayersRepository
 import nz.co.example.nbamodule.features.nbaplayers.business.models.NBAPlayer
 import nz.co.example.nbamodule.features.nbaplayers.data.local.NBAPlayersRemoteMediator
@@ -23,8 +23,8 @@ import nz.co.example.nbamodule.features.nbaplayers.data.remote.NBAPlayersApiServ
 
 internal class NBAPlayersRepositoryImpl(
     private val service: NBAPlayersApiService,
-    private val database: Database,
-    private val dispatchers: CoroutineDispatchersFeature
+    private val database: DatabaseFacade,
+    private val dispatchers: CoroutineDispatchersFacade
 ) : NBAPlayersRepository {
 
     override suspend fun getPlayers(): Flow<PagingData<NBAPlayer>> {

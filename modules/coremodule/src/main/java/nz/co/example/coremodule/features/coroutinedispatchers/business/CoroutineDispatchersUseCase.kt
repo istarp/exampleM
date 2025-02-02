@@ -2,9 +2,9 @@ package nz.co.example.coremodule.features.coroutinedispatchers.business
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFeature
+import nz.co.example.coremodule.features.coroutinedispatchers.CoroutineDispatchersFacade
 
-internal class CoroutineDispatchersUseCase : CoroutineDispatchersFeature {
+internal class CoroutineDispatchersUseCase : CoroutineDispatchersFacade {
 
     override fun main(): CoroutineDispatcher {
         return Dispatchers.Main

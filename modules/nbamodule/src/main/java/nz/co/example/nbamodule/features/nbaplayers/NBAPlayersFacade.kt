@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import nz.co.example.coremodule.common.Result
 import nz.co.example.nbamodule.features.nbaplayers.business.models.NBAPlayer
 
-interface NBAPlayersFeature {
+interface NBAPlayersFacade {
     suspend fun getPlayers(): Flow<PagingData<NBAPlayer>>
     suspend fun getPlayer(id: String): Flow<Result<NBAPlayer>>
 }

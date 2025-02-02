@@ -104,7 +104,7 @@ private fun NBAPlayersLCE(
 
 @Composable
 private fun Players(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     players: LazyPagingItems<UIONBAPlayerCard>,
     onNavigate: (GenericNavigation) -> Unit
 ) {
@@ -116,7 +116,6 @@ private fun Players(
         items(count = players.itemCount, key = players.itemKey { it.id }) { index ->
             players[index]?.let {
                 PlayerCard(
-                    modifier = Modifier,
                     model = it,
                     onClick = { card ->
                         onNavigate(RouteNavigation(AppNavigationRoute.NBAPlayerDetail.createRoute(card.id.toString())))

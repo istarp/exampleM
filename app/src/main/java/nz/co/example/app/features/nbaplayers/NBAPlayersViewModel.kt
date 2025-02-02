@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import nz.co.example.app.features.nbaplayers.model.UIONBAPlayerCard
 import nz.co.example.app.features.nbaplayers.model.mapFrom
-import nz.co.example.nbamodule.features.nbaplayers.NBAPlayersFeature
+import nz.co.example.nbamodule.features.nbaplayers.NBAPlayersFacade
 
-internal class NBAPlayersViewModel(private val nbaPlayersFeature: NBAPlayersFeature) : ViewModel() {
+internal class NBAPlayersViewModel(private val nbaPlayers: NBAPlayersFacade) : ViewModel() {
 
     val data: StateFlow<PagingData<UIONBAPlayerCard>>
         field = MutableStateFlow(PagingData.empty())
@@ -24,7 +24,7 @@ internal class NBAPlayersViewModel(private val nbaPlayersFeature: NBAPlayersFeat
 
     private fun collectData() {
         viewModelScope.launch {
-            nbaPlayersFeature.getPlayers()
+            nbaPlayers.getPlayers()
                 .distinctUntilChanged()
                 .cachedIn(viewModelScope)
                 .collect { pagingData ->

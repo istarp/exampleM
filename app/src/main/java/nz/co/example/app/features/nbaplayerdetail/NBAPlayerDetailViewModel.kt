@@ -9,10 +9,10 @@ import nz.co.example.app.features.nbaplayerdetail.model.UIONBAPlayerDetail
 import nz.co.example.app.features.nbaplayerdetail.model.mapFrom
 import nz.co.example.app.ui.lce.LCEState
 import nz.co.example.coremodule.common.Result
-import nz.co.example.nbamodule.features.nbaplayers.NBAPlayersFeature
+import nz.co.example.nbamodule.features.nbaplayers.NBAPlayersFacade
 
 internal class NBAPlayerDetailViewModel(
-    private val id: String, private val nbaPlayersFeature: NBAPlayersFeature
+    private val id: String, private val nbaPlayers: NBAPlayersFacade
 ) : ViewModel() {
 
     val data: StateFlow<LCEState<UIONBAPlayerDetail>>
@@ -24,7 +24,7 @@ internal class NBAPlayerDetailViewModel(
 
     private fun collectData() {
         viewModelScope.launch {
-            nbaPlayersFeature.getPlayer(id)
+            nbaPlayers.getPlayer(id)
                 .collect { result ->
                     data.value = when (result) {
                         is Result.Data -> LCEState.Content(mapFrom(result.data))
